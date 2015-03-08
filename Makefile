@@ -116,7 +116,7 @@ ifeq ($(USE_OPENCV), 1)
     endif
 endif
 ifeq ($(USE_OPENCV), 1)
-    LIBS += -lopencv_highgui -lopencv_core
+    LIBS += -lopencv_highgui -lopencv_core -lopencv_imgcodecs -lopencv_videoio
 else
     DEFINES += -DDISABLE_OPENCV
 endif
