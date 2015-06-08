@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.0)
 find_package(OpenCV REQUIRED core)
 
 find_package(CUDA REQUIRED)
-
+SET(CMAKE_DEBUG_POSTFIX "d")
 FILE(GLOB_RECURSE src "src/libfastms/*.cpp")
 FILE(GLOB_RECURSE hdr "src/libfastms/*.h")
 FILE(GLOB_RECURSE knlhdr "src/libfastms/*.cuh")
