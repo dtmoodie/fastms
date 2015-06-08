@@ -20,7 +20,9 @@
 #include "solver_base.h"
 #include <cstdio>  // for snprintf
 #include "util/timer.h"
-
+#ifdef _MSC_VER
+#define snprintf sprintf_s
+#endif
 
 
 template<typename real>
@@ -156,6 +158,7 @@ void SolverBase<real>::print_stats()
 	if (str_from_engine != "") { std::cout << str_from_engine.c_str() << ", "; }
 	char buffer[100];
 	snprintf(buffer, sizeof(buffer), "%2.4f s compute / %2.4f s all (+ %2.4f)", stats.time_compute, stats.time, stats.time - stats.time_compute); std::cout << buffer;
+
 	if (stats.num_runs > 1)
 	{
 		snprintf(buffer, sizeof(buffer), ", average %2.4f s / %2.4f s (+ %2.4f)", stats.time_compute_sum / stats.num_runs, stats.time_sum / stats.num_runs, (stats.time_sum - stats.time_compute_sum) / stats.num_runs); std::cout << buffer;

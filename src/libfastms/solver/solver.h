@@ -150,7 +150,7 @@ struct Par
 class SolverImplementation;
 
 // forward-declare here to avoid unnecessary dependencies
-class ArrayDim;
+struct ArrayDim;
 class BaseImage;
 
 // class instead of function to be able to maintain state, i.e. use same memory allocation for several images
