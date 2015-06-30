@@ -17,7 +17,7 @@ SET(CUDA_NVCC_FLAGS "-ccbin g++;-O2;-std=c++11;${CUDA_NVCC_FLAGS}")
 ENDIF(WIN32)
 
 message(STATUS
-" ======================== fastMS ============================= 
+" ============= fastMS ==========
 	Headers: ${hdr}
 	
 	Src: ${src}
@@ -26,7 +26,7 @@ message(STATUS
 	
 	Kernel: ${knl}
 	
- ==============================================================")
+")
 cuda_add_library(fastms ${src} ${hdr} ${knlhdr} ${knl})
 TARGET_LINK_LIBRARIES(fastms ${CUDA_CUBLAS_LIBRARIES})
 install(TARGETS fastms DESTINATION lib) 
