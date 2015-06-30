@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.0)
+
 
 find_package(OpenCV REQUIRED core)
-
+CMAKE_POLICY(SET CMP0020 NEW)
 find_package(CUDA REQUIRED)
 SET(CMAKE_DEBUG_POSTFIX "d")
 FILE(GLOB_RECURSE src "src/libfastms/*.cpp")
