@@ -26,6 +26,13 @@
 
 #include <iostream>
 
+#if (defined WIN32 || defined _WIN32 || defined WINCE || defined __CYGWIN__) && defined fastms_EXPORTS
+#  define DLL_EXPORTS __declspec(dllexport)
+#elif defined __GNUC__ && __GNUC__ >= 4
+#  define DLL_EXPORTS __attribute__ ((visibility ("default")))
+#else
+#  define DLL_EXPORTS
+#endif
 
 
 struct Par
@@ -154,7 +161,7 @@ struct ArrayDim;
 class BaseImage;
 
 // class instead of function to be able to maintain state, i.e. use same memory allocation for several images
-class Solver
+class DLL_EXPORTS Solver
 {
 public:
 	Solver();

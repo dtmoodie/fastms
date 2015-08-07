@@ -11,7 +11,7 @@ FILE(GLOB_RECURSE knl "src/libfastms/*.cu")
 INCLUDE_DIRECTORIES(${OpenCV_INCLUDE_DIRS})
 INCLUDE_DIRECTORIES("src/libfastms")
 IF(WIN32)
-
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /FS")
 ELSE(WIN32)
 SET(CUDA_NVCC_FLAGS "-ccbin g++;-O2;-std=c++11;${CUDA_NVCC_FLAGS}")
 ENDIF(WIN32)
@@ -27,8 +27,8 @@ message(STATUS
 	Kernel: ${knl}
 	
 ")
-cuda_add_library(fastms ${src} ${hdr} ${knlhdr} ${knl})
-TARGET_LINK_LIBRARIES(fastms ${CUDA_CUBLAS_LIBRARIES})
+cuda_add_library(fastms SHARED ${src} ${hdr} ${knlhdr} ${knl})
+TARGET_LINK_LIBRARIES(fastms ${CUDA_CUBLAS_LIBRARIES} ${OpenCV_LIBRARIES})
 install(TARGETS fastms DESTINATION lib) 
 install(FILES ${hdr} DESTINATION include)
 
