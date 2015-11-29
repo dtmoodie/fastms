@@ -28,7 +28,7 @@ message(STATUS
 	
 ")
 cuda_add_library(fastms ${src} ${hdr} ${knlhdr} ${knl})
-TARGET_LINK_LIBRARIES(fastms ${CUDA_CUBLAS_LIBRARIES})
+TARGET_LINK_LIBRARIES(fastms ${CUDA_CUBLAS_LIBRARIES} ${OpenCV_LIBRARIES})
 install(TARGETS fastms DESTINATION lib) 
 install(FILES ${hdr} DESTINATION include)
 
