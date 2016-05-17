@@ -1,6 +1,6 @@
 
 
-find_package(OpenCV REQUIRED core)
+find_package(OpenCV QUIET COMPONENTS core)
 set_target_properties(${OpenCV_LIBS} PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
 CMAKE_POLICY(SET CMP0020 NEW)
 find_package(CUDA REQUIRED)
