@@ -28,29 +28,29 @@
 template<typename TUntypedAccessOut, typename TUntypedAccessIn>
 __global__ void copy_image_d2d_base_kernel (TUntypedAccessOut out, TUntypedAccessIn in)
 {
-	const ElemKind out_kind = out.elem_kind();
-	const ElemKind in_kind = in.elem_kind();
-	const Dim2D &dim2d = in.dim().dim2d();
-	const int num_channels = in.dim().num_channels;
-	int x = cuda_x();
-	int y = cuda_y();
-	if (is_active(x, y, dim2d))
-	{
-		for (int i = 0; i < num_channels; i++)
-		{
-			convert_type(out_kind, in_kind, out.get_address(x, y, i), in.get_address(x, y, i));
-		}
-	}
+    const ElemKind out_kind = out.elem_kind();
+    const ElemKind in_kind = in.elem_kind();
+    const Dim2D &dim2d = in.dim().dim2d();
+    const int num_channels = in.dim().num_channels;
+    int x = cuda_x();
+    int y = cuda_y();
+    if (is_active(x, y, dim2d))
+    {
+        for (int i = 0; i < num_channels; i++)
+        {
+            convert_type(out_kind, in_kind, out.get_address(x, y, i), in.get_address(x, y, i));
+        }
+    }
 }
 
 
 template<typename TUntypedAccessOut, typename TUntypedAccessIn>
 void copy_image_d2d_base(TUntypedAccessOut out, TUntypedAccessIn in)
 {
-	const Dim2D &dim2d = in.dim().dim2d();
-	dim3 block = cuda_block_size(dim2d.w, dim2d.h);
-	dim3 grid = cuda_grid_size(block, dim2d.w, dim2d.h);
-	copy_image_d2d_base_kernel <<<grid, block>>> (out, in);  CUDA_CHECK;
+    const Dim2D &dim2d = in.dim().dim2d();
+    dim3 block = cuda_block_size(dim2d.w, dim2d.h);
+    dim3 grid = cuda_grid_size(block, dim2d.w, dim2d.h);
+    copy_image_d2d_base_kernel <<<grid, block>>> (out, in);  CUDA_CHECK;
 }
 
 

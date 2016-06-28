@@ -30,40 +30,40 @@
 class Timer
 {
 public:
-	Timer() : time_start(0.0), running(false), seconds(0.0)
-	{
-	}
-	void start()
-	{
-		time_start = get_cur_seconds();
-		running = true;
-	}
-	void end()
-	{
-		if (!running) { seconds = 0.0; return; }
-		seconds = get_cur_seconds() - time_start;
-		running = false;
-	}
-	double get()
-	{
-		if (running) end();
-		return seconds;
-	}
+    Timer() : time_start(0.0), running(false), seconds(0.0)
+    {
+    }
+    void start()
+    {
+        time_start = get_cur_seconds();
+        running = true;
+    }
+    void end()
+    {
+        if (!running) { seconds = 0.0; return; }
+        seconds = get_cur_seconds() - time_start;
+        running = false;
+    }
+    double get()
+    {
+        if (running) end();
+        return seconds;
+    }
 private:
-	// this method accumulates the time spent in all threads as if they were running in parallel,
-	// so we can't use this if we compute something with OpenMP
-	// double get_cur_seconds() { return (double)clock() / CLOCKS_PER_SEC; }
+    // this method accumulates the time spent in all threads as if they were running in parallel,
+    // so we can't use this if we compute something with OpenMP
+    // double get_cur_seconds() { return (double)clock() / CLOCKS_PER_SEC; }
 
-	// this gives the wall clock time, and works as expected with OpenMP
-	double get_cur_seconds()
-	{
-	    struct timeval cur_time;
-	    if (gettimeofday(&cur_time, NULL)) { return 0.0; }
-	    return (double)cur_time.tv_sec + 1e-6 * (double)cur_time.tv_usec;
-	}
-	double time_start;
-	bool running;
-	double seconds;
+    // this gives the wall clock time, and works as expected with OpenMP
+    double get_cur_seconds()
+    {
+        struct timeval cur_time;
+        if (gettimeofday(&cur_time, NULL)) { return 0.0; }
+        return (double)cur_time.tv_sec + 1e-6 * (double)cur_time.tv_usec;
+    }
+    double time_start;
+    bool running;
+    double seconds;
 };
 
 

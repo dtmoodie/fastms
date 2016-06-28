@@ -19,14 +19,14 @@ ENDIF(WIN32)
 
 message(STATUS
 " ============= fastMS ==========
-	Headers: ${hdr}
-	
-	Src: ${src}
-	
-	Kernel Headers: ${knlhdr}
-	
-	Kernel: ${knl}
-	
+    Headers: ${hdr}
+    
+    Src: ${src}
+    
+    Kernel Headers: ${knlhdr}
+    
+    Kernel: ${knl}
+    
 ")
 cuda_add_library(fastms SHARED ${src} ${hdr} ${knlhdr} ${knl})
 TARGET_LINK_LIBRARIES(fastms ${CUDA_CUBLAS_LIBRARIES} ${OpenCV_LIBRARIES})

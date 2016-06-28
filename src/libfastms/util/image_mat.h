@@ -40,38 +40,38 @@ template<typename T> struct MatDepth { static const int value = cv::DataDepth<T>
 class MatImage: public BaseImage
 {
 public:
-	MatImage(cv::Mat image) { mat = image; }
-	MatImage(const ArrayDim &dim, int depth) { mat = cv::Mat(dim.h, dim.w, CV_MAKETYPE(depth, dim.num_channels), cv::Scalar::all(0)); }
-	virtual ~MatImage() {}
+    MatImage(cv::Mat image) { mat = image; }
+    MatImage(const ArrayDim &dim, int depth) { mat = cv::Mat(dim.h, dim.w, CV_MAKETYPE(depth, dim.num_channels), cv::Scalar::all(0)); }
+    virtual ~MatImage() {}
 
-	virtual BaseImage* new_of_same_type_and_size() const { return new MatImage(dim(), mat.depth()); }
-	virtual ArrayDim dim() const { return ArrayDim(mat.cols, mat.rows, mat.channels()); }
-	virtual void copy_from_layered(const ImageUntypedAccess<DataInterpretationLayered> &in) { copy_image(this->get_untyped_access(), in); }
-	virtual void copy_to_layered(ImageUntypedAccess<DataInterpretationLayered> out) const { copy_image(out, this->get_untyped_access()); }
+    virtual BaseImage* new_of_same_type_and_size() const { return new MatImage(dim(), mat.depth()); }
+    virtual ArrayDim dim() const { return ArrayDim(mat.cols, mat.rows, mat.channels()); }
+    virtual void copy_from_layered(const ImageUntypedAccess<DataInterpretationLayered> &in) { copy_image(this->get_untyped_access(), in); }
+    virtual void copy_to_layered(ImageUntypedAccess<DataInterpretationLayered> out) const { copy_image(out, this->get_untyped_access()); }
 
-	cv::Mat get_mat() const { return mat; }
+    cv::Mat get_mat() const { return mat; }
 
 private:
-	typedef ImageUntypedAccess<DataInterpretationInterlacedReversed> image_untyped_access_t;
-	image_untyped_access_t get_untyped_access() const
-	{
-		return image_untyped_access_t(get_data(), dim(), elem_kind(), true);  // true = on_host
-	}
+    typedef ImageUntypedAccess<DataInterpretationInterlacedReversed> image_untyped_access_t;
+    image_untyped_access_t get_untyped_access() const
+    {
+        return image_untyped_access_t(get_data(), dim(), elem_kind(), true);  // true = on_host
+    }
 
-	void* get_data() const { return (void*)mat.data; }
-	ElemKind elem_kind() const
-	{
-		int mat_depth = mat.depth();
-		switch (mat_depth)
-		{
-			case MatDepth<unsigned char>::value: { return elem_kind_uchar; }
-			case MatDepth<float>::value: { return elem_kind_float; }
-			case MatDepth<double>::value: { return elem_kind_double; }
-			default: { std::cerr << "ERROR: MatImage::elem_kind(): Unexpected cv::Mat depth " << mat_depth << std::endl; return elem_kind_uchar; }
-		}
-	}
+    void* get_data() const { return (void*)mat.data; }
+    ElemKind elem_kind() const
+    {
+        int mat_depth = mat.depth();
+        switch (mat_depth)
+        {
+            case MatDepth<unsigned char>::value: { return elem_kind_uchar; }
+            case MatDepth<float>::value: { return elem_kind_float; }
+            case MatDepth<double>::value: { return elem_kind_double; }
+            default: { std::cerr << "ERROR: MatImage::elem_kind(): Unexpected cv::Mat depth " << mat_depth << std::endl; return elem_kind_uchar; }
+        }
+    }
 
-	cv::Mat mat;
+    cv::Mat mat;
 };
 
 

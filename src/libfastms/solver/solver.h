@@ -37,45 +37,45 @@
 
 struct Par
 {
-	Par()
-	{
-		lambda = 0.1;
-		alpha = 20.0;
-		temporal = 0.0;
-		iterations = 10000;
-		stop_eps = 5e-5;
-		stop_k = 10;
-		adapt_params = false;
-		weight = false;
-		edges = false;
-		use_double = false;
-		engine = engine_cuda;
-		verbose = true;
-	}
+    Par()
+    {
+        lambda = 0.1;
+        alpha = 20.0;
+        temporal = 0.0;
+        iterations = 10000;
+        stop_eps = 5e-5;
+        stop_k = 10;
+        adapt_params = false;
+        weight = false;
+        edges = false;
+        use_double = false;
+        engine = engine_cuda;
+        verbose = true;
+    }
 
-	void print() const
-	{
-	    std::cout << "Params:\n";
-	    std::cout << "  lambda: " << lambda << "\n";
-	    std::cout << "  alpha: " << alpha << "\n";
-	    std::cout << "  temporal: " << temporal << "\n";
-	    std::cout << "  iterations: " << iterations << "\n";
-	    std::cout << "  stop_eps: " << stop_eps << "\n";
-	    std::cout << "  stop_k: " << stop_k << "\n";
-	    std::cout << "  adapt_params: " << adapt_params << "\n";
-	    std::cout << "  weight: " << weight << "\n";
-	    std::cout << "  edges: " << edges << "\n";
-	    std::cout << "  use_double: " << use_double << "\n";
-	    std::cout << "  engine: " << (engine == Par::engine_cpu? "cpu" : "cuda") << "\n";
-	}
+    void print() const
+    {
+        std::cout << "Params:\n";
+        std::cout << "  lambda: " << lambda << "\n";
+        std::cout << "  alpha: " << alpha << "\n";
+        std::cout << "  temporal: " << temporal << "\n";
+        std::cout << "  iterations: " << iterations << "\n";
+        std::cout << "  stop_eps: " << stop_eps << "\n";
+        std::cout << "  stop_k: " << stop_k << "\n";
+        std::cout << "  adapt_params: " << adapt_params << "\n";
+        std::cout << "  weight: " << weight << "\n";
+        std::cout << "  edges: " << edges << "\n";
+        std::cout << "  use_double: " << use_double << "\n";
+        std::cout << "  engine: " << (engine == Par::engine_cpu? "cpu" : "cuda") << "\n";
+    }
 
-	// Length penalization parameter.
-	// For bigger values:
-	//   Number of discontinuities will be smaller, i.e. the solution will be smooth over larger regions.
-	//   To set lambda = infinity: Set lambda to any value < 0. Solution will be a constant one, with one and the same color in every pixel ( = mean color).
-	// For smaller values:
-	//   More discontinuities will arise, i.e. the regions of smoothness will be smaller and the solution will resemble the input image more and more.
-	//   Value lambda = 0: Solution will be equal to the original input image.
+    // Length penalization parameter.
+    // For bigger values:
+    //   Number of discontinuities will be smaller, i.e. the solution will be smooth over larger regions.
+    //   To set lambda = infinity: Set lambda to any value < 0. Solution will be a constant one, with one and the same color in every pixel ( = mean color).
+    // For smaller values:
+    //   More discontinuities will arise, i.e. the regions of smoothness will be smaller and the solution will resemble the input image more and more.
+    //   Value lambda = 0: Solution will be equal to the original input image.
     double lambda;
 
     // Smoothness penalization parameter.
@@ -132,24 +132,24 @@ struct Par
     //
     bool weight;
 
-	// If true: The edge set will be overlaid on top of the computed color image.
-	bool edges;
+    // If true: The edge set will be overlaid on top of the computed color image.
+    bool edges;
 
-	// Compute everything with double instead of float.
+    // Compute everything with double instead of float.
     bool use_double;
 
     // Use CPU or CUDA.
-	int engine;
-	static const int engine_cpu = 0;
-	static const int engine_cuda = 1;
+    int engine;
+    static const int engine_cpu = 0;
+    static const int engine_cuda = 1;
 
-	// If true: Output information:
-	//   - image dimensions
-	//   - required memory
-	//   - number of iterations after which the stopping criterion has been reached
-	//   - time for computation only (excluding allocation and initialization)
-	//   - energy
-	bool verbose;
+    // If true: Output information:
+    //   - image dimensions
+    //   - required memory
+    //   - number of iterations after which the stopping criterion has been reached
+    //   - time for computation only (excluding allocation and initialization)
+    //   - energy
+    bool verbose;
 };
 
 
@@ -164,30 +164,30 @@ class BaseImage;
 class DLL_EXPORTS Solver
 {
 public:
-	Solver();
-	~Solver();
+    Solver();
+    ~Solver();
 
-	// general
-	BaseImage* run(const BaseImage *in, const Par &par);
+    // general
+    BaseImage* run(const BaseImage *in, const Par &par);
 
-	// layered real
-	void run(float *&out_image, const float *in_image, const ArrayDim &dim, const Par &par);
-	void run(double *&out_image, const double *in_image, const ArrayDim &dim, const Par &par);
+    // layered real
+    void run(float *&out_image, const float *in_image, const ArrayDim &dim, const Par &par);
+    void run(double *&out_image, const double *in_image, const ArrayDim &dim, const Par &par);
 
-	// interlaced char
-	void run(unsigned char *&out_image, const unsigned char *in_image, const ArrayDim &dim, const Par &par);
+    // interlaced char
+    void run(unsigned char *&out_image, const unsigned char *in_image, const ArrayDim &dim, const Par &par);
 
-	// cv::Mat
+    // cv::Mat
 #ifndef DISABLE_OPENCV
-	cv::Mat run(const cv::Mat in_image, const Par &par);
+    cv::Mat run(const cv::Mat in_image, const Par &par);
 #endif // not DISABLE_OPENCV
 
 
 private:
-	Solver(const Solver &other_solver);  // disable
-	Solver& operator= (const Solver &other_solver);  // disable
+    Solver(const Solver &other_solver);  // disable
+    Solver& operator= (const Solver &other_solver);  // disable
 
-	SolverImplementation *implementation;
+    SolverImplementation *implementation;
 };
 
 

@@ -29,18 +29,18 @@ template<typename real>
 class SolverHost
 {
 public:
-	typedef real real_t;
+    typedef real real_t;
 
-	SolverHost();
-	~SolverHost();
+    SolverHost();
+    ~SolverHost();
 
-	BaseImage* run(const BaseImage *in_image, const Par &par);
+    BaseImage* run(const BaseImage *in_image, const Par &par);
 
 private:
-	SolverHost(const SolverHost<real> &other_solver);  // disable
-	SolverHost<real>& operator= (const SolverHost<real> &other_solver);  // disable
+    SolverHost(const SolverHost<real> &other_solver);  // disable
+    SolverHost<real>& operator= (const SolverHost<real> &other_solver);  // disable
 
-	SolverHostImplementation<real> *implementation;
+    SolverHostImplementation<real> *implementation;
 };
 
 

@@ -26,31 +26,31 @@ template<typename T>
 class HeapArray
 {
 public:
-	typedef T elem_type;
+    typedef T elem_type;
 
-	explicit HeapArray(int num_elem) : data(NULL)
-	{
-		data = new T[num_elem];
-	}
-	~HeapArray()
-	{
-		if (data) delete[] data;
-		data = NULL;
-	}
-	T& get(int i)
-	{
-		return data[i];
-	}
-	const T& get(int i) const
-	{
-		return data[i];
-	}
+    explicit HeapArray(int num_elem) : data(NULL)
+    {
+        data = new T[num_elem];
+    }
+    ~HeapArray()
+    {
+        if (data) delete[] data;
+        data = NULL;
+    }
+    T& get(int i)
+    {
+        return data[i];
+    }
+    const T& get(int i) const
+    {
+        return data[i];
+    }
 
 private:
-	HeapArray(const HeapArray<T> &other_array);
-	HeapArray<T>& operator= (const HeapArray<T> &other_array);
+    HeapArray(const HeapArray<T> &other_array);
+    HeapArray<T>& operator= (const HeapArray<T> &other_array);
 
-	T *data;
+    T *data;
 };
 
 

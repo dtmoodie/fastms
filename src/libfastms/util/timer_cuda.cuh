@@ -29,46 +29,46 @@
 class DeviceTimer
 {
 public:
-	DeviceTimer() : running(false), sec(0.0)
-	{
-		cudaEventCreate(&event_start);
-		cudaEventCreate(&event_stop);
-	}
-	~DeviceTimer()
-	{
-		cudaEventDestroy(event_start);
-		cudaEventDestroy(event_stop);
-	}
-	void start()
-	{
-		cudaEventRecord(event_start,0);
-		cudaEventSynchronize(event_start);
-		running = true;
-	}
-	void end()
-	{
-		if (!running)
-		{
-			sec = 0;
-			return;
-		}
-		cudaEventRecord(event_stop,0);
-		cudaEventSynchronize(event_stop);
-		float cuda_duration;
-		cudaEventElapsedTime(&cuda_duration, event_start, event_stop);
-		sec = (double)cuda_duration / 1000.0;
-		running = false;
-	}
-	double get()
-	{
-		if (running) end();
-		return sec;
-	}
+    DeviceTimer() : running(false), sec(0.0)
+    {
+        cudaEventCreate(&event_start);
+        cudaEventCreate(&event_stop);
+    }
+    ~DeviceTimer()
+    {
+        cudaEventDestroy(event_start);
+        cudaEventDestroy(event_stop);
+    }
+    void start()
+    {
+        cudaEventRecord(event_start,0);
+        cudaEventSynchronize(event_start);
+        running = true;
+    }
+    void end()
+    {
+        if (!running)
+        {
+            sec = 0;
+            return;
+        }
+        cudaEventRecord(event_stop,0);
+        cudaEventSynchronize(event_stop);
+        float cuda_duration;
+        cudaEventElapsedTime(&cuda_duration, event_start, event_stop);
+        sec = (double)cuda_duration / 1000.0;
+        running = false;
+    }
+    double get()
+    {
+        if (running) end();
+        return sec;
+    }
 private:
-	cudaEvent_t event_start;
-	cudaEvent_t event_stop;
-	bool running;
-	double sec;
+    cudaEvent_t event_start;
+    cudaEvent_t event_stop;
+    bool running;
+    double sec;
 };
 
 

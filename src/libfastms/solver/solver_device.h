@@ -32,18 +32,18 @@ template<typename real>
 class SolverDevice
 {
 public:
-	typedef real real_t;
+    typedef real real_t;
 
-	SolverDevice();
-	~SolverDevice();
+    SolverDevice();
+    ~SolverDevice();
 
-	BaseImage* run(const BaseImage *image, const Par &par);
+    BaseImage* run(const BaseImage *image, const Par &par);
 
 private:
-	SolverDevice(const SolverDevice<real> &other_solver);  // disable
-	SolverDevice<real>& operator= (const SolverDevice<real> &other_solver);  // disable
+    SolverDevice(const SolverDevice<real> &other_solver);  // disable
+    SolverDevice<real>& operator= (const SolverDevice<real> &other_solver);  // disable
 
-	SolverDeviceImplementation<real> *implementation;
+    SolverDeviceImplementation<real> *implementation;
 };
 
 

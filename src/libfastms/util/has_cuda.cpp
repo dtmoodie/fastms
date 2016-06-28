@@ -30,33 +30,33 @@
 bool has_cuda(std::string *error_str)
 {
 #ifndef DISABLE_CUDA
-	int num_dev = 0;
-	cudaError_t e = cudaGetDeviceCount(&num_dev);
-	if (e == cudaSuccess)
-	{
-		if (num_dev > 0)
-		{
-			if (error_str) { *error_str = ""; }
-			return true;
-		}
-		else
-		{
-			if (error_str) { *error_str = "No CUDA capable devices detected"; }
-			return false;
-		}
-	}
-	else
-	{
-		if (error_str)
-		{
-			std::stringstream s;
-			s << "cuda error code " << e << ": " << cudaGetErrorString(e);
-			*error_str = s.str();
-		}
-		return false;
-	}
+    int num_dev = 0;
+    cudaError_t e = cudaGetDeviceCount(&num_dev);
+    if (e == cudaSuccess)
+    {
+        if (num_dev > 0)
+        {
+            if (error_str) { *error_str = ""; }
+            return true;
+        }
+        else
+        {
+            if (error_str) { *error_str = "No CUDA capable devices detected"; }
+            return false;
+        }
+    }
+    else
+    {
+        if (error_str)
+        {
+            std::stringstream s;
+            s << "cuda error code " << e << ": " << cudaGetErrorString(e);
+            *error_str = s.str();
+        }
+        return false;
+    }
 #else
-	if (error_str) { *error_str = "CUDA was disabled during compilation"; }
-	return false;
+    if (error_str) { *error_str = "CUDA was disabled during compilation"; }
+    return false;
 #endif // not DISABLE_CUDA
 }

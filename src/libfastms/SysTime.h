@@ -14,13 +14,13 @@ indicates whether daylight is now in use
 */
 struct timezone2
 {
-	__int32  tz_minuteswest; /* minutes W of Greenwich */
-	bool  tz_dsttime;     /* type of dst correction */
+    __int32  tz_minuteswest; /* minutes W of Greenwich */
+    bool  tz_dsttime;     /* type of dst correction */
 };
 
 struct timeval2 {
-	__int32    tv_sec;         /* seconds */
-	__int32    tv_usec;        /* microseconds */
+    __int32    tv_sec;         /* seconds */
+    __int32    tv_usec;        /* microseconds */
 };
 int gettimeofday(struct timeval2 *tv/*in*/, struct timezone2 *tz/*in*/);
 #else

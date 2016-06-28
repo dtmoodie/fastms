@@ -35,22 +35,22 @@ __device__ __forceinline__ int cuda_y() { return threadIdx.y + blockDim.y * bloc
 
 __device__ __host__ __forceinline__ bool is_active(int x, int y, const Dim2D &dim)
 {
-	return (x < dim.w && y < dim.h);
+    return (x < dim.w && y < dim.h);
 }
 
 
 inline dim3 cuda_block_size(int w, int h)
 {
-	dim3 block(128, 2, 1);
-	block.x = std::min((int)block.x, w);
-	block.y = std::min((int)block.y, w);
-	return block;
+    dim3 block(128, 2, 1);
+    block.x = std::min((int)block.x, w);
+    block.y = std::min((int)block.y, w);
+    return block;
 }
 
 
 inline dim3 cuda_grid_size(dim3 block, int w, int h)
 {
-	return dim3((w + block.x - 1) / block.x, (h + block.y - 1) / block.y, 1);
+    return dim3((w + block.x - 1) / block.x, (h + block.y - 1) / block.y, 1);
 }
 
 
